@@ -1392,6 +1392,7 @@ def main(argv=None, stdin=None):
         'If no exclusion was specified, all paths are excluded first.')
 
     options, unk_argv = parser.parse_known_args(argv[1:]) ### allow arbitrary extra args
+    options.argv = unk_argv
     if options.exclude_syspath:
         options.exclude.extend('^' + re.escape(x) for x in sys.path)
     if options.include and not options.exclude:
@@ -1409,7 +1410,7 @@ def main(argv=None, stdin=None):
     if options.module is None:
         if options.script is None:
             parser.error('too few arguments')
-        args = [options.script] + unk_argv
+        args = [options.script] + options.argv
         runner_method_kw = {
             'path': args[0],
             'argv': args,
