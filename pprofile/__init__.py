@@ -1391,7 +1391,7 @@ def main(argv=None, stdin=None):
         help='Include files whose name would have otherwise excluded. '
         'If no exclusion was specified, all paths are excluded first.')
 
-    options = parser.parse_args(argv[1:])
+    options, unk = parser.parse_known_args(argv[1:]) ### allow arbitrary extra args
     if options.exclude_syspath:
         options.exclude.extend('^' + re.escape(x) for x in sys.path)
     if options.include and not options.exclude:
